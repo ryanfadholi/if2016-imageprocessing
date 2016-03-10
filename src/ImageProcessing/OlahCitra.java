@@ -19,6 +19,7 @@ import javax.imageio.ImageIO;
  *
  * @author Ryan Fadholi
  */
+//Test github syncing
 public final class OlahCitra {
     //Objek Gambar yang akan diolah
     private static BufferedImage leftImage = null;
