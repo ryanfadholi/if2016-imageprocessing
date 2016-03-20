@@ -14,6 +14,10 @@ import java.awt.image.BufferedImageOp;
 import java.awt.image.ConvolveOp;
 import java.awt.image.ImageObserver;
 import java.awt.image.Kernel;
+import org.jfree.chart.*;
+import org.jfree.chart.plot.PlotOrientation;
+import org.jfree.data.category.DefaultCategoryDataset;
+import org.jfree.ui.RefineryUtilities;
 /**
  *
  * @author Ryan Fadholi
@@ -69,6 +73,8 @@ public class OlahCitra_GUI extends javax.swing.JFrame {
         mBlur = new javax.swing.JMenuItem();
         mSharpen = new javax.swing.JMenuItem();
         mEmboss = new javax.swing.JMenuItem();
+        jMenu1 = new javax.swing.JMenu();
+        jMenuItem1 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Pengolahan Citra");
@@ -243,6 +249,23 @@ public class OlahCitra_GUI extends javax.swing.JFrame {
         mConvolve.add(mEmboss);
 
         jMenuBar1.add(mConvolve);
+
+        jMenu1.setText("Test Chart");
+        jMenu1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenu1ActionPerformed(evt);
+            }
+        });
+
+        jMenuItem1.setText("jMenuItem1");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem1);
+
+        jMenuBar1.add(jMenu1);
 
         setJMenuBar(jMenuBar1);
 
@@ -423,6 +446,33 @@ public class OlahCitra_GUI extends javax.swing.JFrame {
         RefreshImageCanvas(true);
     }//GEN-LAST:event_mHorizontalFlipActionPerformed
 
+     private DefaultCategoryDataset createDataset( )
+   {
+      DefaultCategoryDataset dataset = new DefaultCategoryDataset( );
+      dataset.addValue( 15 , "schools" , "1970" );
+      dataset.addValue( 30 , "schools" , "1980" );
+      dataset.addValue( 60 , "schools" ,  "1990" );
+      dataset.addValue( 120 , "schools" , "2000" );
+      dataset.addValue( 240 , "schools" , "2010" );
+      dataset.addValue( 300 , "schools" , "2014" );
+      return dataset;
+   }
+     
+    private void jMenu1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenu1ActionPerformed
+        // TODO add your handling code here:
+       
+    }//GEN-LAST:event_jMenu1ActionPerformed
+
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        
+        TestJFreeChart demo = new TestJFreeChart("Pie Chart Demo 7");
+        demo.pack();
+        RefineryUtilities.centerFrameOnScreen(demo);
+        demo.setVisible(true);
+    
+//        new TestChart(lineChart).setVisible(true);
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -442,7 +492,9 @@ public class OlahCitra_GUI extends javax.swing.JFrame {
     private javax.swing.JMenuItem SourcePNG;
     private javax.swing.JScrollPane Tempat_Gambar1;
     private javax.swing.JScrollPane Tempat_Gambar2;
+    private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JLabel leftImageLabel;
     private javax.swing.JMenuItem mBlur;
     private javax.swing.JMenuItem mClose;
