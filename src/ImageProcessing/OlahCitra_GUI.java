@@ -34,6 +34,8 @@ public class OlahCitra_GUI extends javax.swing.JFrame {
         mSaveSource.setEnabled(false);
         mSaveProcessed.setEnabled(false);
         mPreprocessing.setEnabled(false);
+        mConvolve.setEnabled(false);
+        mView.setEnabled(false);
     }
 
     /**
@@ -64,6 +66,8 @@ public class OlahCitra_GUI extends javax.swing.JFrame {
         ProcessedJPG = new javax.swing.JMenuItem();
         ProcessedPNG = new javax.swing.JMenuItem();
         mClose = new javax.swing.JMenuItem();
+        mView = new javax.swing.JMenu();
+        mGrayHistogram = new javax.swing.JMenuItem();
         mPreprocessing = new javax.swing.JMenu();
         mHorizontalFlip = new javax.swing.JMenuItem();
         mVerticalFlip = new javax.swing.JMenuItem();
@@ -73,8 +77,6 @@ public class OlahCitra_GUI extends javax.swing.JFrame {
         mBlur = new javax.swing.JMenuItem();
         mSharpen = new javax.swing.JMenuItem();
         mEmboss = new javax.swing.JMenuItem();
-        jMenu1 = new javax.swing.JMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Pengolahan Citra");
@@ -184,6 +186,23 @@ public class OlahCitra_GUI extends javax.swing.JFrame {
 
         jMenuBar1.add(mFile);
 
+        mView.setText("View");
+        mView.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mViewActionPerformed(evt);
+            }
+        });
+
+        mGrayHistogram.setText("Grayscale Histogram");
+        mGrayHistogram.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mGrayHistogramActionPerformed(evt);
+            }
+        });
+        mView.add(mGrayHistogram);
+
+        jMenuBar1.add(mView);
+
         mPreprocessing.setText("Pre-Processing");
 
         mHorizontalFlip.setText("Flip Horizontally");
@@ -250,23 +269,6 @@ public class OlahCitra_GUI extends javax.swing.JFrame {
 
         jMenuBar1.add(mConvolve);
 
-        jMenu1.setText("Test Chart");
-        jMenu1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenu1ActionPerformed(evt);
-            }
-        });
-
-        jMenuItem1.setText("jMenuItem1");
-        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem1ActionPerformed(evt);
-            }
-        });
-        jMenu1.add(jMenuItem1);
-
-        jMenuBar1.add(jMenu1);
-
         setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -313,12 +315,14 @@ public class OlahCitra_GUI extends javax.swing.JFrame {
          Tempat_Gambar1.getVerticalScrollBar().setValue(0);
          Tempat_Gambar1.getHorizontalScrollBar().setValue(0);
          mSaveSource.setEnabled(true);
-          
+         mConvolve.setEnabled(true);
+         
          if(showRightImage){
              Gambar2.setIcon(rightIcon);
              Tempat_Gambar1.getVerticalScrollBar().setValue(0);
              Tempat_Gambar1.getHorizontalScrollBar().setValue(0);
              mSaveProcessed.setEnabled(true);
+             mView.setEnabled(true);
          }
          else{
              Gambar2.setIcon(null);
@@ -458,20 +462,16 @@ public class OlahCitra_GUI extends javax.swing.JFrame {
       return dataset;
    }
      
-    private void jMenu1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenu1ActionPerformed
+    private void mViewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mViewActionPerformed
         // TODO add your handling code here:
        
-    }//GEN-LAST:event_jMenu1ActionPerformed
+    }//GEN-LAST:event_mViewActionPerformed
 
-    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
-        
-        TestJFreeChart demo = new TestJFreeChart("Pie Chart Demo 7");
-        demo.pack();
-        RefineryUtilities.centerFrameOnScreen(demo);
-        demo.setVisible(true);
-    
-//        new TestChart(lineChart).setVisible(true);
-    }//GEN-LAST:event_jMenuItem1ActionPerformed
+    private void mGrayHistogramActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mGrayHistogramActionPerformed
+        // TODO add your handling code here:
+        GrayscaleHistogram_GUI test = new GrayscaleHistogram_GUI();
+        test.show();
+    }//GEN-LAST:event_mGrayHistogramActionPerformed
 
     /**
      * @param args the command line arguments
@@ -492,15 +492,14 @@ public class OlahCitra_GUI extends javax.swing.JFrame {
     private javax.swing.JMenuItem SourcePNG;
     private javax.swing.JScrollPane Tempat_Gambar1;
     private javax.swing.JScrollPane Tempat_Gambar2;
-    private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JLabel leftImageLabel;
     private javax.swing.JMenuItem mBlur;
     private javax.swing.JMenuItem mClose;
     private javax.swing.JMenu mConvolve;
     private javax.swing.JMenuItem mEmboss;
     private javax.swing.JMenu mFile;
+    private javax.swing.JMenuItem mGrayHistogram;
     private javax.swing.JMenuItem mGrayscale;
     private javax.swing.JMenuItem mHorizontalFlip;
     private javax.swing.JMenuItem mLoad_Image;
@@ -510,6 +509,7 @@ public class OlahCitra_GUI extends javax.swing.JFrame {
     private javax.swing.JMenu mSaveSource;
     private javax.swing.JMenuItem mSharpen;
     private javax.swing.JMenuItem mVerticalFlip;
+    private javax.swing.JMenu mView;
     private javax.swing.JLabel rightImageLabel;
     // End of variables declaration//GEN-END:variables
 }

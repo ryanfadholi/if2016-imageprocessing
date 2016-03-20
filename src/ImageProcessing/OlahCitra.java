@@ -14,6 +14,10 @@ import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
+import org.jfree.chart.ChartFactory;
+import org.jfree.chart.JFreeChart;
+import org.jfree.chart.renderer.xy.XYItemRenderer;
+import org.jfree.data.statistics.HistogramDataset;
 
 /**
  *
@@ -86,6 +90,48 @@ public final class OlahCitra {
         //Di Main/Form.
     }
 
+    public static JFreeChart createHistogram(double[] dataset_values, Color barColor){
+        
+        //Tentukan panjang dan lebar gambar
+        
+        HistogramDataset dataset = new HistogramDataset();
+        
+        dataset.addSeries("Values", dataset_values, 255, 0, 255);
+        JFreeChart chart = ChartFactory.createHistogram( null,null,null
+        //Titles are nullified, because we don't need 'em. 
+                           , dataset, 
+                        org.jfree.chart.plot.PlotOrientation.VERTICAL
+                        , true, false, false);
+         chart.removeLegend();
+        
+        XYItemRenderer renderer = chart.getXYPlot().getRenderer();
+        Color black = new Color(0, 0, 0);
+        renderer.setSeriesPaint(0, black);
+        chart.setBackgroundPaint(null);
+        
+        return chart;
+    }
+    
+    public static double[] extractGrayColor(BufferedImage source){
+        //Mengambil 
+        int imageWidth = source.getWidth();
+        int imageHeight = source.getHeight();
+        double[] values = new double[imageWidth * imageHeight];
+        
+         for (int i = 0; i < imageHeight; i++) {
+            for (int j = 0; j < imageWidth; j++) {
+                int rgbValue = source.getRGB(j, i);
+                Color currentPixel = new Color(rgbValue,true);
+                int value = (currentPixel.getRed() 
+                                    + currentPixel.getGreen() 
+                                    + currentPixel.getBlue()) / 3;
+                values[(i*imageWidth)+j] = value;
+            }
+        }
+         
+        return values;
+    }
+    
     //Getter dan Setter
     public static BufferedImage getLeftImage() {
         return leftImage;
