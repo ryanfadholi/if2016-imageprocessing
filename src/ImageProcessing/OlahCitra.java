@@ -28,7 +28,7 @@ public final class OlahCitra {
     //Objek Gambar yang akan diolah
     private static BufferedImage leftImage = null;
     private static BufferedImage rightImage = null;
-    private static BufferedImage tempImage = null;
+    private static BufferedImage temp = null;
     
     private static int[] getSourceMatrix(int pixelWidth, int pixelHeight, char color){
         //[TIDAK UNTUK DIPANGGIL LANGSUNG, DIPANGGIL OLEH FUNGSI processFiltering().
@@ -43,7 +43,7 @@ public final class OlahCitra {
         
         for (int i= pixelHeight-1; i <= pixelHeight+1; i++) {
             for (int j = pixelWidth-1; j <= pixelWidth+1; j++) {
-                Color currentPixel = new Color(tempImage.getRGB(j, i));
+                Color currentPixel = new Color(temp.getRGB(j, i));
                 switch(color){
                     case 'R':
                         source[sourceArrIndex] = currentPixel.getRed();
@@ -144,7 +144,7 @@ public final class OlahCitra {
     public static boolean setImage(String fileDir){
         try {
             leftImage = ImageIO.read(new File(fileDir));
-            tempImage = ImageIO.read(new File(fileDir));
+            temp = ImageIO.read(new File(fileDir));
             rightImage = ImageIO.read(new File(fileDir));
         } catch (IOException ex) {
             Logger.getLogger(OlahCitra_GUI.class.getName()).log(Level.SEVERE, null, ex);
@@ -236,7 +236,7 @@ public final class OlahCitra {
      for (int i= 0; i < rightImage.getHeight(); i++) {
             for (int j = 0; j < rightImage.getWidth(); j++) {
                 int right_rgb = rightImage.getRGB(j, i);
-                tempImage.setRGB(j,i, right_rgb);
+                temp.setRGB(j,i, right_rgb);
             }
         }
     }
