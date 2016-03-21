@@ -63,14 +63,11 @@ public final class ImageProcessing {
     private static int normalizeColor(int colorValue){
         //Normalisasi nilai sebuah integer, disini berupa sebuah nilai warna
         //dalam spektrum RGB dengan range 0-255.
-        if(colorValue > 255){
-            return 255;
-        }
-        if(colorValue < 0){
-            return 0;
-        }
+        if(colorValue > 255){return 255;}
+        if(colorValue < 0)  {return 0;}
         return colorValue;
     }
+    
     private static int processFiltering(int pixelWidth, int pixelHeight, char color, double[] filter){
         int[] sourceMatrix = getSourceMatrix(pixelWidth, pixelHeight, color);
         double sum = 0;
@@ -89,6 +86,22 @@ public final class ImageProcessing {
         //Constructor private untuk mencegah instansiasi class ImageProcessing
         //Di Main/Form.
     }
+    
+    private int[] getRGBValues(BufferedImage image){
+        int imageHeight = image.getHeight();
+        int imageWidth  = image.getWidth();
+        
+        int[] values = new int[imageHeight * imageWidth];
+        
+        for (int i = 0; i < imageHeight; i++) {
+            for (int j = 0; j < imageWidth; j++) {
+                int rgbValue = image.getRGB(j, i);
+                values[(i*imageWidth)+j] = rgbValue;
+            }
+        }
+        
+        return values;
+    }
 
     public static JFreeChart createHistogram(double[] dataset_values, Color barColor){
         //Creates a histogram based on passed values and bar colors.        
@@ -104,7 +117,7 @@ public final class ImageProcessing {
         
         //Remove chart legends to save space, we don't really need them anyway
         chart.removeLegend();
-        //Set bar colors according to the parameter passed.
+        //Set bars color according to the parameter passed.
         XYItemRenderer renderer = chart.getXYPlot().getRenderer();
         renderer.setSeriesPaint(0, barColor);
         //Set background to null (the background will be similar to frame color in display.
@@ -258,9 +271,6 @@ public final class ImageProcessing {
     public static void processConvolve(double[] filter){
         int filteredRed, filteredGreen, filteredBlue;
         setTempImage();
-//        for(int i=0;i<filter.length;i++){
-//            System.out.println(filter[i]);
-//        }
   
        for (int i = 1; i < rightImage.getHeight()-1; i++) {
             for (int j = 1; j < rightImage.getWidth()-1; j++) {
