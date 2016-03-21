@@ -25,6 +25,8 @@ public class RGBHistogram_GUI extends javax.swing.JFrame {
     }
     
     public RGBHistogram_GUI(Component callerComponent) {
+       //callerComponent is used only to determine the position of this
+       //frame when called.
        initComponents();
        this.setLocationRelativeTo(callerComponent);
        
@@ -33,24 +35,24 @@ public class RGBHistogram_GUI extends javax.swing.JFrame {
        int chartLabelWidth = sourceImageGreenHistogram.getWidth();
        
        //Get values for each color component from source image.
-       double[] sourceRedValues   = OlahCitra.extractRedColor(OlahCitra.getLeftImage());
-       double[] sourceGreenValues = OlahCitra.extractGreenColor(OlahCitra.getLeftImage());
-       double[] sourceBlueValues  = OlahCitra.extractBlueColor(OlahCitra.getLeftImage());
+       double[] sourceRedValues   = ImageProcessing.extractRedColor(ImageProcessing.getLeftImage());
+       double[] sourceGreenValues = ImageProcessing.extractGreenColor(ImageProcessing.getLeftImage());
+       double[] sourceBlueValues  = ImageProcessing.extractBlueColor(ImageProcessing.getLeftImage());
        
        //Get values for each color component from processed image.
-       double[] processedRedValues   = OlahCitra.extractRedColor(OlahCitra.getRightImage());
-       double[] processedGreenValues = OlahCitra.extractGreenColor(OlahCitra.getRightImage());
-       double[] processedBlueValues  = OlahCitra.extractBlueColor(OlahCitra.getRightImage());
+       double[] processedRedValues   = ImageProcessing.extractRedColor(ImageProcessing.getRightImage());
+       double[] processedGreenValues = ImageProcessing.extractGreenColor(ImageProcessing.getRightImage());
+       double[] processedBlueValues  = ImageProcessing.extractBlueColor(ImageProcessing.getRightImage());
        
        //Create charts for each color component from source image.
-       JFreeChart sourceRedChart    = OlahCitra.createHistogram(sourceRedValues, Color.RED);
-       JFreeChart sourceGreenChart  = OlahCitra.createHistogram(sourceGreenValues, Color.GREEN);
-       JFreeChart sourceBlueChart   = OlahCitra.createHistogram(sourceBlueValues, Color.BLUE);
+       JFreeChart sourceRedChart    = ImageProcessing.createHistogram(sourceRedValues, Color.RED);
+       JFreeChart sourceGreenChart  = ImageProcessing.createHistogram(sourceGreenValues, Color.GREEN);
+       JFreeChart sourceBlueChart   = ImageProcessing.createHistogram(sourceBlueValues, Color.BLUE);
        
        //Create charts for each color component from processed image.
-       JFreeChart processedRedChart   = OlahCitra.createHistogram(processedRedValues, Color.RED);
-       JFreeChart processedGreenChart = OlahCitra.createHistogram(processedGreenValues, Color.GREEN);
-       JFreeChart processedBlueChart  = OlahCitra.createHistogram(processedBlueValues, Color.BLUE);
+       JFreeChart processedRedChart   = ImageProcessing.createHistogram(processedRedValues, Color.RED);
+       JFreeChart processedGreenChart = ImageProcessing.createHistogram(processedGreenValues, Color.GREEN);
+       JFreeChart processedBlueChart  = ImageProcessing.createHistogram(processedBlueValues, Color.BLUE);
        
        //Convert each source image charts to a BufferedImage.
        BufferedImage sourceRedChartImage   = sourceRedChart.createBufferedImage(chartLabelWidth, chartLabelHeight);

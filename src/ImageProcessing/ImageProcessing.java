@@ -24,7 +24,7 @@ import org.jfree.data.statistics.HistogramDataset;
  * @author Ryan Fadholi
  */
 //Test github syncing
-public final class OlahCitra {
+public final class ImageProcessing {
     //Objek Gambar yang akan diolah
     private static BufferedImage leftImage = null;
     private static BufferedImage rightImage = null;
@@ -85,27 +85,29 @@ public final class OlahCitra {
         return result;
     }
         
-    private OlahCitra(){
-        //Constructor private untuk mencegah instansiasi class OlahCitra
+    private ImageProcessing(){
+        //Constructor private untuk mencegah instansiasi class ImageProcessing
         //Di Main/Form.
     }
 
     public static JFreeChart createHistogram(double[] dataset_values, Color barColor){
-        
-        //Tentukan panjang dan lebar gambar
-        
+        //Creates a histogram based on passed values and bar colors.        
         HistogramDataset dataset = new HistogramDataset();
-        
         dataset.addSeries("Values", dataset_values, 255, 0, 255);
-        JFreeChart chart = ChartFactory.createHistogram( null,null,null
-        //Titles are nullified, because we don't need 'em. 
-                           , dataset, 
-                        org.jfree.chart.plot.PlotOrientation.VERTICAL
-                        , true, false, false);
-         chart.removeLegend();
         
+        JFreeChart chart = ChartFactory.createHistogram( null, //Title
+                                                         null, //X Label
+                                                         null, //Y Label
+                                                      dataset, //Dataset
+                org.jfree.chart.plot.PlotOrientation.VERTICAL, //Plot orientation
+                                          true, false, false); //Other details
+        
+        //Remove chart legends to save space, we don't really need them anyway
+        chart.removeLegend();
+        //Set bar colors according to the parameter passed.
         XYItemRenderer renderer = chart.getXYPlot().getRenderer();
         renderer.setSeriesPaint(0, barColor);
+        //Set background to null (the background will be similar to frame color in display.
         chart.setBackgroundPaint(null);
         
         return chart;
@@ -200,7 +202,7 @@ public final class OlahCitra {
             temp = ImageIO.read(new File(fileDir));
             rightImage = ImageIO.read(new File(fileDir));
         } catch (IOException ex) {
-            Logger.getLogger(OlahCitra_GUI.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ImageProcessing_GUI.class.getName()).log(Level.SEVERE, null, ex);
             return false;
         }
         return true;
@@ -301,7 +303,7 @@ public final class OlahCitra {
         try {
             ImageIO.write(leftImage, imageType, temp);
         } catch (IOException ex) {
-            Logger.getLogger(OlahCitra_GUI.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ImageProcessing_GUI.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     
@@ -312,7 +314,7 @@ public final class OlahCitra {
         try {
             ImageIO.write(rightImage, imageType, temp);
         } catch (IOException ex) {
-            Logger.getLogger(OlahCitra_GUI.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ImageProcessing_GUI.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 }

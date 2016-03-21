@@ -6,13 +6,10 @@
 package ImageProcessing;
 
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.image.BufferedImage;
 import javax.swing.ImageIcon;
-import org.jfree.chart.ChartFactory;
 import org.jfree.chart.JFreeChart;
-import org.jfree.chart.renderer.xy.XYItemRenderer;
-import org.jfree.data.statistics.HistogramDataset;
-
 /**
  *
  * @author Ryan Fadholi
@@ -22,24 +19,33 @@ public class GrayscaleHistogram_GUI extends javax.swing.JFrame {
     /**
      * Creates new form ShowGrayscaleHistogram_GUI
      */
-    public GrayscaleHistogram_GUI() {
+    public GrayscaleHistogram_GUI(){
+        this(null);
+    }
+    public GrayscaleHistogram_GUI(Component callerComponent) {
+        //callerComponent is used only to determine the position of this
+        //frame when called.
+        
         initComponents();
+        this.setLocationRelativeTo(callerComponent);
         
-       int chartLabelHeight = sourceImageHistogram.getHeight();
-       int chartLabelWidth = sourceImageHistogram.getWidth();
+        //Determine chart width & height in display.
+        int chartLabelHeight = sourceImageHistogram.getHeight();
+        int chartLabelWidth = sourceImageHistogram.getWidth();
        
-       double[] sourceGrayValues = OlahCitra.extractGrayColor(OlahCitra.getLeftImage());
-       double[] processedGrayValues = OlahCitra.extractGrayColor(OlahCitra.getRightImage());
+        //Get Grayscale value for every pixels from source & processed image.
+        double[] sourceGrayValues = ImageProcessing.extractGrayColor(ImageProcessing.getLeftImage());
+        double[] processedGrayValues = ImageProcessing.extractGrayColor(ImageProcessing.getRightImage());
        
-       JFreeChart sourceChart = OlahCitra.createHistogram(sourceGrayValues, Color.BLACK);
-       JFreeChart processedChart = OlahCitra.createHistogram(processedGrayValues,Color.BLACK);
+        //Create two charts using the grayscale values.
+        JFreeChart sourceChart = ImageProcessing.createHistogram(sourceGrayValues, Color.BLACK);
+        JFreeChart processedChart = ImageProcessing.createHistogram(processedGrayValues,Color.BLACK);
         
-        BufferedImage sourceChartImage = sourceChart.createBufferedImage(chartLabelWidth, 
-                                                                    chartLabelHeight);
+        //Convert the charts to a BufferedImage for displaying.
+        BufferedImage sourceChartImage = sourceChart.createBufferedImage(chartLabelWidth, chartLabelHeight);
+        BufferedImage processedChartImage = processedChart.createBufferedImage(chartLabelWidth, chartLabelHeight);
         
-         BufferedImage processedChartImage = processedChart.createBufferedImage(chartLabelWidth, 
-                                                                    chartLabelHeight);
-         
+        //Display the chart images.
         sourceImageHistogram.setIcon(new ImageIcon(sourceChartImage));
         processedImageHistogram.setIcon(new ImageIcon(processedChartImage));
     }

@@ -5,8 +5,6 @@
  */
 package ImageProcessing;
 
-import java.awt.Dimension;
-import java.awt.Toolkit;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -14,20 +12,23 @@ import java.awt.image.BufferedImageOp;
 import java.awt.image.ConvolveOp;
 import java.awt.image.ImageObserver;
 import java.awt.image.Kernel;
-import org.jfree.data.category.DefaultCategoryDataset;
 /**
  *
  * @author Ryan Fadholi
  * Based on Rezi Apriliansyah's Citra GUI
  */
 
-public class OlahCitra_GUI extends javax.swing.JFrame {
+public class ImageProcessing_GUI extends javax.swing.JFrame {
     private String file;
     /**
-     * Creates new form OlahCitra
+     * Creates new form ImageProcessing
      */
-    public OlahCitra_GUI() {
+    public ImageProcessing_GUI() {
         initComponents();
+        
+        //Sets the frame position to the center of the screen.
+        this.setLocationRelativeTo(null);
+        
         mSaveSource.setEnabled(false);
         mSaveProcessed.setEnabled(false);
         mPreprocessing.setEnabled(false);
@@ -81,11 +82,6 @@ public class OlahCitra_GUI extends javax.swing.JFrame {
         setMinimumSize(new java.awt.Dimension(600, 400));
         setResizable(false);
         setSize(new java.awt.Dimension(1200, 800));
-        addWindowListener(new java.awt.event.WindowAdapter() {
-            public void windowActivated(java.awt.event.WindowEvent evt) {
-                formWindowActivated(evt);
-            }
-        });
 
         Tempat_Gambar1.setViewportView(Gambar1);
 
@@ -312,8 +308,8 @@ public class OlahCitra_GUI extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void RefreshImageCanvas(boolean showRightImage){
-         ImageIcon leftIcon = new ImageIcon(OlahCitra.getLeftImage());
-         ImageIcon rightIcon = new ImageIcon(OlahCitra.getRightImage());
+         ImageIcon leftIcon = new ImageIcon(ImageProcessing.getLeftImage());
+         ImageIcon rightIcon = new ImageIcon(ImageProcessing.getRightImage());
          
          mPreprocessing.setEnabled(true);
         
@@ -355,15 +351,9 @@ public class OlahCitra_GUI extends javax.swing.JFrame {
         }
     }
     
-    private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
-        Dimension screensize = Toolkit.getDefaultToolkit().getScreenSize();
-        Dimension framesize = getSize();
-        setLocation((screensize.width - framesize.width)/2, (screensize.height - framesize.height)/2);
-    }//GEN-LAST:event_formWindowActivated
-
     private void mGrayscaleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mGrayscaleActionPerformed
 
-        OlahCitra.processGrayscale();
+        ImageProcessing.processGrayscale();
         RefreshImageCanvas(true);
     }//GEN-LAST:event_mGrayscaleActionPerformed
 
@@ -379,7 +369,7 @@ public class OlahCitra_GUI extends javax.swing.JFrame {
         Pilih_file.showOpenDialog(this);
         file = Pilih_file.getSelectedFile().toString();
         
-        if(OlahCitra.setImage(file)){
+        if(ImageProcessing.setImage(file)){
             RefreshImageCanvas(false);
         }
     }//GEN-LAST:event_mLoad_ImageActionPerformed
@@ -409,7 +399,7 @@ public class OlahCitra_GUI extends javax.swing.JFrame {
     }//GEN-LAST:event_ProcessedPNGActionPerformed
 
     private void mResetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mResetActionPerformed
-        OlahCitra.resetImage();
+        ImageProcessing.resetImage();
         RefreshImageCanvas(true);
     }//GEN-LAST:event_mResetActionPerformed
 
@@ -420,7 +410,7 @@ public class OlahCitra_GUI extends javax.swing.JFrame {
            0.125 , 0.25 , 0.125 ,
            0.0625, 0.125, 0.0625
         };
-        OlahCitra.processConvolve(blurKernel);
+        ImageProcessing.processConvolve(blurKernel);
         RefreshImageCanvas(true);
     }//GEN-LAST:event_mBlurActionPerformed
 
@@ -430,7 +420,7 @@ public class OlahCitra_GUI extends javax.swing.JFrame {
            -1,5 ,-1,
            0 ,-1, 0
         };
-        OlahCitra.processConvolve(sharpenKernel);
+        ImageProcessing.processConvolve(sharpenKernel);
         RefreshImageCanvas(true);
     }//GEN-LAST:event_mSharpenActionPerformed
 
@@ -441,32 +431,20 @@ public class OlahCitra_GUI extends javax.swing.JFrame {
            -1, 1, 1,
             0, 1, 2
         };
-        OlahCitra.processConvolve(embossKernel);
+        ImageProcessing.processConvolve(embossKernel);
         RefreshImageCanvas(true);
     
     }//GEN-LAST:event_mEmbossActionPerformed
 
     private void mVerticalFlipActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mVerticalFlipActionPerformed
-        OlahCitra.processFlipVertical();
+        ImageProcessing.processFlipVertical();
         RefreshImageCanvas(true);
     }//GEN-LAST:event_mVerticalFlipActionPerformed
 
     private void mHorizontalFlipActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mHorizontalFlipActionPerformed
-        OlahCitra.processFlipHorizontal();
+        ImageProcessing.processFlipHorizontal();
         RefreshImageCanvas(true);
     }//GEN-LAST:event_mHorizontalFlipActionPerformed
-
-     private DefaultCategoryDataset createDataset( )
-   {
-      DefaultCategoryDataset dataset = new DefaultCategoryDataset( );
-      dataset.addValue( 15 , "schools" , "1970" );
-      dataset.addValue( 30 , "schools" , "1980" );
-      dataset.addValue( 60 , "schools" ,  "1990" );
-      dataset.addValue( 120 , "schools" , "2000" );
-      dataset.addValue( 240 , "schools" , "2010" );
-      dataset.addValue( 300 , "schools" , "2014" );
-      return dataset;
-   }
      
     private void mViewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mViewActionPerformed
         // TODO add your handling code here:
@@ -474,13 +452,13 @@ public class OlahCitra_GUI extends javax.swing.JFrame {
     }//GEN-LAST:event_mViewActionPerformed
 
     private void mGrayHistogramActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mGrayHistogramActionPerformed
-        GrayscaleHistogram_GUI test = new GrayscaleHistogram_GUI();
-        test.setVisible(true);
+        GrayscaleHistogram_GUI grayHisto = new GrayscaleHistogram_GUI(this);
+        grayHisto.setVisible(true);
     }//GEN-LAST:event_mGrayHistogramActionPerformed
 
     private void mRGBHistogramActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mRGBHistogramActionPerformed
-        RGBHistogram_GUI test = new RGBHistogram_GUI(this);
-        test.setVisible(true);
+        RGBHistogram_GUI RGBHisto = new RGBHistogram_GUI(this);
+        RGBHisto.setVisible(true);
     }//GEN-LAST:event_mRGBHistogramActionPerformed
 
     /**
