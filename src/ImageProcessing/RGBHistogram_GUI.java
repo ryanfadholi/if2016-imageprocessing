@@ -6,6 +6,7 @@
 package ImageProcessing;
 
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.image.BufferedImage;
 import javax.swing.ImageIcon;
 import org.jfree.chart.JFreeChart;
@@ -19,8 +20,13 @@ public class RGBHistogram_GUI extends javax.swing.JFrame {
     /**
      * Creates new form RGBHistogram_GUI
      */
-    public RGBHistogram_GUI() {
+    public RGBHistogram_GUI(){
+        this(null);
+    }
+    
+    public RGBHistogram_GUI(Component callerComponent) {
        initComponents();
+       this.setLocationRelativeTo(callerComponent);
        
        //Determine the chart width & height for displaying.
        int chartLabelHeight = sourceImageGreenHistogram.getHeight();
@@ -88,7 +94,8 @@ public class RGBHistogram_GUI extends javax.swing.JFrame {
         processedImageGreenHistogram = new javax.swing.JLabel();
         processedImageRedHistogram = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("RGB Histogram");
 
         sourceLabel.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         sourceLabel.setText("Source Image Histogram");

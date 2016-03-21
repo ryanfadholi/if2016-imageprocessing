@@ -14,10 +14,7 @@ import java.awt.image.BufferedImageOp;
 import java.awt.image.ConvolveOp;
 import java.awt.image.ImageObserver;
 import java.awt.image.Kernel;
-import org.jfree.chart.*;
-import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.data.category.DefaultCategoryDataset;
-import org.jfree.ui.RefineryUtilities;
 /**
  *
  * @author Ryan Fadholi
@@ -482,7 +479,7 @@ public class OlahCitra_GUI extends javax.swing.JFrame {
     }//GEN-LAST:event_mGrayHistogramActionPerformed
 
     private void mRGBHistogramActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mRGBHistogramActionPerformed
-        RGBHistogram_GUI test = new RGBHistogram_GUI();
+        RGBHistogram_GUI test = new RGBHistogram_GUI(this);
         test.setVisible(true);
     }//GEN-LAST:event_mRGBHistogramActionPerformed
 
