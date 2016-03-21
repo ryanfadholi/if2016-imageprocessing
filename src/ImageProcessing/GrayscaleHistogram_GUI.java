@@ -31,8 +31,8 @@ public class GrayscaleHistogram_GUI extends javax.swing.JFrame {
        double[] sourceGrayValues = OlahCitra.extractGrayColor(OlahCitra.getLeftImage());
        double[] processedGrayValues = OlahCitra.extractGrayColor(OlahCitra.getRightImage());
        
-        JFreeChart sourceChart = OlahCitra.createHistogram(sourceGrayValues, Color.BLACK);
-        JFreeChart processedChart = OlahCitra.createHistogram(processedGrayValues,Color.BLACK);
+       JFreeChart sourceChart = OlahCitra.createHistogram(sourceGrayValues, Color.BLACK);
+       JFreeChart processedChart = OlahCitra.createHistogram(processedGrayValues,Color.BLACK);
         
         BufferedImage sourceChartImage = sourceChart.createBufferedImage(chartLabelWidth, 
                                                                     chartLabelHeight);

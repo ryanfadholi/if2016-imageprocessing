@@ -105,11 +105,28 @@ public final class OlahCitra {
          chart.removeLegend();
         
         XYItemRenderer renderer = chart.getXYPlot().getRenderer();
-        Color black = new Color(0, 0, 0);
-        renderer.setSeriesPaint(0, black);
+        renderer.setSeriesPaint(0, barColor);
         chart.setBackgroundPaint(null);
         
         return chart;
+    }
+    
+    public static double[] extractBlueColor(BufferedImage source){
+        //Mengambil 
+        int imageWidth = source.getWidth();
+        int imageHeight = source.getHeight();
+        double[] values = new double[imageWidth * imageHeight];
+        
+         for (int i = 0; i < imageHeight; i++) {
+            for (int j = 0; j < imageWidth; j++) {
+                int rgbValue = source.getRGB(j, i);
+                Color currentPixel = new Color(rgbValue,true);
+                int value = currentPixel.getBlue();
+                values[(i*imageWidth)+j] = value;
+            }
+        }
+         
+        return values;
     }
     
     public static double[] extractGrayColor(BufferedImage source){
@@ -125,6 +142,42 @@ public final class OlahCitra {
                 int value = (currentPixel.getRed() 
                                     + currentPixel.getGreen() 
                                     + currentPixel.getBlue()) / 3;
+                values[(i*imageWidth)+j] = value;
+            }
+        }
+         
+        return values;
+    }
+    
+    public static double[] extractGreenColor(BufferedImage source){
+        //Mengambil 
+        int imageWidth = source.getWidth();
+        int imageHeight = source.getHeight();
+        double[] values = new double[imageWidth * imageHeight];
+        
+         for (int i = 0; i < imageHeight; i++) {
+            for (int j = 0; j < imageWidth; j++) {
+                int rgbValue = source.getRGB(j, i);
+                Color currentPixel = new Color(rgbValue,true);
+                int value = currentPixel.getGreen();
+                values[(i*imageWidth)+j] = value;
+            }
+        }
+         
+        return values;
+    }
+    
+    public static double[] extractRedColor(BufferedImage source){
+        //Mengambil 
+        int imageWidth = source.getWidth();
+        int imageHeight = source.getHeight();
+        double[] values = new double[imageWidth * imageHeight];
+        
+         for (int i = 0; i < imageHeight; i++) {
+            for (int j = 0; j < imageWidth; j++) {
+                int rgbValue = source.getRGB(j, i);
+                Color currentPixel = new Color(rgbValue,true);
+                int value = currentPixel.getRed();
                 values[(i*imageWidth)+j] = value;
             }
         }

@@ -68,6 +68,7 @@ public class OlahCitra_GUI extends javax.swing.JFrame {
         mClose = new javax.swing.JMenuItem();
         mView = new javax.swing.JMenu();
         mGrayHistogram = new javax.swing.JMenuItem();
+        mRGBHistogram = new javax.swing.JMenuItem();
         mPreprocessing = new javax.swing.JMenu();
         mHorizontalFlip = new javax.swing.JMenuItem();
         mVerticalFlip = new javax.swing.JMenuItem();
@@ -200,6 +201,14 @@ public class OlahCitra_GUI extends javax.swing.JFrame {
             }
         });
         mView.add(mGrayHistogram);
+
+        mRGBHistogram.setText("RGB Histogram");
+        mRGBHistogram.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mRGBHistogramActionPerformed(evt);
+            }
+        });
+        mView.add(mRGBHistogram);
 
         jMenuBar1.add(mView);
 
@@ -468,10 +477,14 @@ public class OlahCitra_GUI extends javax.swing.JFrame {
     }//GEN-LAST:event_mViewActionPerformed
 
     private void mGrayHistogramActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mGrayHistogramActionPerformed
-        // TODO add your handling code here:
         GrayscaleHistogram_GUI test = new GrayscaleHistogram_GUI();
-        test.show();
+        test.setVisible(true);
     }//GEN-LAST:event_mGrayHistogramActionPerformed
+
+    private void mRGBHistogramActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mRGBHistogramActionPerformed
+        RGBHistogram_GUI test = new RGBHistogram_GUI();
+        test.setVisible(true);
+    }//GEN-LAST:event_mRGBHistogramActionPerformed
 
     /**
      * @param args the command line arguments
@@ -504,6 +517,7 @@ public class OlahCitra_GUI extends javax.swing.JFrame {
     private javax.swing.JMenuItem mHorizontalFlip;
     private javax.swing.JMenuItem mLoad_Image;
     private javax.swing.JMenu mPreprocessing;
+    private javax.swing.JMenuItem mRGBHistogram;
     private javax.swing.JMenuItem mReset;
     private javax.swing.JMenu mSaveProcessed;
     private javax.swing.JMenu mSaveSource;
