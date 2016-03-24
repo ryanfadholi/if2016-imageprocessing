@@ -20,25 +20,6 @@ import org.jfree.data.statistics.HistogramDataset;
 //Test github syncing
 public final class ImageProcessing {
     
-//    private static int[] getSourceMatrix(int pixelWidth, int pixelHeight, double[] colorArray){
-//        //[TIDAK UNTUK DIPANGGIL LANGSUNG, DIPANGGIL OLEH FUNGSI processFiltering().
-//        //Mengambil sebuah matriks pixel berukuran 3x3 dengan pixel di parameter 
-//        //pixelWidth dan pixelHeight sebagai elemen tengah.
-//        //Pixel diambil dari sebuah objek BufferedImage. Khusus implementasi ini
-//        //objek sumber adalah tempImage, yaitu sebuah kopi dari objek rightImage
-//        //tepat sebelum operasi yang sedang dijalankan.
-//        int[] source = new int[9];
-//        int sourceArrIndex=0;
-//       
-//        
-//        for (int i= pixelHeight-1; i <= pixelHeight+1; i++) {
-//            for (int j = pixelWidth-1; j <= pixelWidth+1; j++) {
-//                source[sourceArrIndex] = colorArray[(i*imageWidth)+j];
-//                sourceArrIndex++;
-//            }
-//        }
-//         return source;
-//    }
     private static int normalizeColor(int colorValue){
         //Ensures colorValue value to always stay at the range (0-255)
         if(colorValue > 255){
