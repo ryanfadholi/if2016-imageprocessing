@@ -5,11 +5,64 @@
  */
 package ImageProcessing;
 
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.imageio.ImageIO;
+
 /**
  *
  * @author Ryan Fadholi
  */
 public class Main {
+    private static BufferedImage sourceImage;
+    private static BufferedImage tempImage;
+    private static BufferedImage processedImage;
+
+    public static BufferedImage getSourceImage() {
+        return sourceImage;
+    }
+
+    public static BufferedImage getProcessedImage() {
+        return processedImage;
+    }
+    
+    public static void saveSourceImage(String fileLocation, String imageType){
+        
+        File temp = new File(fileLocation);
+        
+        try {
+            ImageIO.write(sourceImage, imageType, temp);
+        } catch (IOException ex) {
+            Logger.getLogger(ImageProcessing_GUI.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+     public static void saveProcessedImage(String fileLocation, String imageType){
+        
+        File temp = new File(fileLocation);
+        
+        try {
+            ImageIO.write(processedImage, imageType, temp);
+        } catch (IOException ex) {
+            Logger.getLogger(ImageProcessing_GUI.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+     
+    public static boolean setImage(String fileDir){
+         try {
+            sourceImage = ImageIO.read(new File(fileDir));
+            tempImage = ImageIO.read(new File(fileDir));
+            processedImage = ImageIO.read(new File(fileDir));
+        } catch (IOException ex) {
+            Logger.getLogger(ImageProcessing_GUI.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }
+        return true;
+    }
+    
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">

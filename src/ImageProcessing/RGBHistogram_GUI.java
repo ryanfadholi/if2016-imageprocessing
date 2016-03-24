@@ -35,14 +35,14 @@ public class RGBHistogram_GUI extends javax.swing.JFrame {
        int chartLabelWidth = sourceImageGreenHistogram.getWidth();
        
        //Get values for each color component from source image.
-       double[] sourceRedValues   = ImageProcessing.extractRedColor(ImageProcessing.getLeftImage());
-       double[] sourceGreenValues = ImageProcessing.extractGreenColor(ImageProcessing.getLeftImage());
-       double[] sourceBlueValues  = ImageProcessing.extractBlueColor(ImageProcessing.getLeftImage());
+       double[] sourceRedValues   = ImageProcessing.extractRedColor(Main.getSourceImage());
+       double[] sourceGreenValues = ImageProcessing.extractGreenColor(Main.getSourceImage());
+       double[] sourceBlueValues  = ImageProcessing.extractBlueColor(Main.getSourceImage());
        
        //Get values for each color component from processed image.
-       double[] processedRedValues   = ImageProcessing.extractRedColor(ImageProcessing.getRightImage());
-       double[] processedGreenValues = ImageProcessing.extractGreenColor(ImageProcessing.getRightImage());
-       double[] processedBlueValues  = ImageProcessing.extractBlueColor(ImageProcessing.getRightImage());
+       double[] processedRedValues   = ImageProcessing.extractRedColor(Main.getProcessedImage());
+       double[] processedGreenValues = ImageProcessing.extractGreenColor(Main.getProcessedImage());
+       double[] processedBlueValues  = ImageProcessing.extractBlueColor(Main.getProcessedImage());
        
        //Create charts for each color component from source image.
        JFreeChart sourceRedChart    = ImageProcessing.createHistogram(sourceRedValues, Color.RED);

@@ -34,8 +34,8 @@ public class GrayscaleHistogram_GUI extends javax.swing.JFrame {
         int chartLabelWidth = sourceImageHistogram.getWidth();
        
         //Get Grayscale value for every pixels from source & processed image.
-        double[] sourceGrayValues = ImageProcessing.extractGrayColor(ImageProcessing.getLeftImage());
-        double[] processedGrayValues = ImageProcessing.extractGrayColor(ImageProcessing.getRightImage());
+        double[] sourceGrayValues = ImageProcessing.extractGrayColor(Main.getSourceImage());
+        double[] processedGrayValues = ImageProcessing.extractGrayColor(Main.getProcessedImage());
        
         //Create two charts using the grayscale values.
         JFreeChart sourceChart = ImageProcessing.createHistogram(sourceGrayValues, Color.BLACK);

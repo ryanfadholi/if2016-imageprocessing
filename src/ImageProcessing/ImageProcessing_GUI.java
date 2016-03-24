@@ -8,10 +8,6 @@ package ImageProcessing;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileNameExtensionFilter;
-import java.awt.image.BufferedImageOp;
-import java.awt.image.ConvolveOp;
-import java.awt.image.ImageObserver;
-import java.awt.image.Kernel;
 /**
  *
  * @author Ryan Fadholi
@@ -308,8 +304,8 @@ public class ImageProcessing_GUI extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void RefreshImageCanvas(boolean showRightImage){
-         ImageIcon leftIcon = new ImageIcon(ImageProcessing.getLeftImage());
-         ImageIcon rightIcon = new ImageIcon(ImageProcessing.getRightImage());
+         ImageIcon leftIcon = new ImageIcon(Main.getSourceImage());
+         ImageIcon rightIcon = new ImageIcon(Main.getProcessedImage());
          
          mPreprocessing.setEnabled(true);
         
@@ -336,13 +332,20 @@ public class ImageProcessing_GUI extends javax.swing.JFrame {
     }
     
     private void chooseSaveDir(boolean isProcessed, String imageType){
+        //Opens a dialogue where user can choose a directory, in this case
+        //the directory will be used to save the source/processed image.
+      
         String chosenDir;
+        
+        //Setting the File Chooser dialogue.
         JFileChooser chooser = new JFileChooser();
         chooser.setCurrentDirectory(new java.io.File("."));
         chooser.setDialogTitle("Choose Saving Directory");
         chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
         chooser.setAcceptAllFileFilterUsed(false);
 
+        //If the user selected a valid directory, open a SaveDialog_GUI
+        //directed to the directory chosen.
         if (chooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
             chosenDir = chooser.getSelectedFile().toString();
             new SaveDialog_GUI(chosenDir,isProcessed,imageType).setVisible(true);
@@ -353,7 +356,7 @@ public class ImageProcessing_GUI extends javax.swing.JFrame {
     
     private void mGrayscaleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mGrayscaleActionPerformed
 
-        ImageProcessing.processGrayscale();
+        ImageProcessing.processGrayscale(Main.getProcessedImage());
         RefreshImageCanvas(true);
     }//GEN-LAST:event_mGrayscaleActionPerformed
 
@@ -369,7 +372,9 @@ public class ImageProcessing_GUI extends javax.swing.JFrame {
         Pilih_file.showOpenDialog(this);
         file = Pilih_file.getSelectedFile().toString();
         
-        if(ImageProcessing.setImage(file)){
+        //Try to load image into a BufferedImage. Show the loaded image to
+        //the left pane if loading is successful.
+        if(Main.setImage(file)){
             RefreshImageCanvas(false);
         }
     }//GEN-LAST:event_mLoad_ImageActionPerformed
@@ -399,7 +404,7 @@ public class ImageProcessing_GUI extends javax.swing.JFrame {
     }//GEN-LAST:event_ProcessedPNGActionPerformed
 
     private void mResetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mResetActionPerformed
-        ImageProcessing.resetImage();
+        ImageProcessing.copyImage(Main.getSourceImage(), Main.getProcessedImage());
         RefreshImageCanvas(true);
     }//GEN-LAST:event_mResetActionPerformed
 
@@ -410,7 +415,7 @@ public class ImageProcessing_GUI extends javax.swing.JFrame {
            0.125 , 0.25 , 0.125 ,
            0.0625, 0.125, 0.0625
         };
-        ImageProcessing.processConvolve(blurKernel);
+        ImageProcessing.processConvolve(Main.getProcessedImage(), blurKernel);
         RefreshImageCanvas(true);
     }//GEN-LAST:event_mBlurActionPerformed
 
@@ -420,7 +425,7 @@ public class ImageProcessing_GUI extends javax.swing.JFrame {
            -1,5 ,-1,
            0 ,-1, 0
         };
-        ImageProcessing.processConvolve(sharpenKernel);
+        ImageProcessing.processConvolve(Main.getProcessedImage(), sharpenKernel);
         RefreshImageCanvas(true);
     }//GEN-LAST:event_mSharpenActionPerformed
 
@@ -431,18 +436,18 @@ public class ImageProcessing_GUI extends javax.swing.JFrame {
            -1, 1, 1,
             0, 1, 2
         };
-        ImageProcessing.processConvolve(embossKernel);
+        ImageProcessing.processConvolve(Main.getProcessedImage(), embossKernel);
         RefreshImageCanvas(true);
     
     }//GEN-LAST:event_mEmbossActionPerformed
 
     private void mVerticalFlipActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mVerticalFlipActionPerformed
-        ImageProcessing.processFlipVertical();
+        ImageProcessing.processFlipVertical(Main.getProcessedImage());
         RefreshImageCanvas(true);
     }//GEN-LAST:event_mVerticalFlipActionPerformed
 
     private void mHorizontalFlipActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mHorizontalFlipActionPerformed
-        ImageProcessing.processFlipHorizontal();
+        ImageProcessing.processFlipHorizontal(Main.getProcessedImage());
         RefreshImageCanvas(true);
     }//GEN-LAST:event_mHorizontalFlipActionPerformed
      
