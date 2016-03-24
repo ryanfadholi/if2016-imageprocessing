@@ -148,10 +148,10 @@ public class SaveDialog_GUI extends javax.swing.JFrame {
         else{
             saveImageDir = tSaveDir.getText() + tSaveName.getText() + '.' + imageType;
             if(isSavingProcessed){
-                ImageProcessing.saveProcessedImage(saveImageDir, imageType);
+                Main.saveProcessedImage(saveImageDir, imageType);
             }
             else{
-                ImageProcessing.saveSourceImage(saveImageDir, imageType);
+                Main.saveSourceImage(saveImageDir, imageType);
             }
         }
         this.dispose();

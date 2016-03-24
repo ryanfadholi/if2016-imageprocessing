@@ -7,13 +7,7 @@ package ImageProcessing;
 
 import java.awt.Color;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-import java.util.HashSet;
-import java.util.Set;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.imageio.ImageIO;
+import static java.lang.Math.sqrt;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.renderer.xy.XYItemRenderer;
@@ -25,44 +19,28 @@ import org.jfree.data.statistics.HistogramDataset;
  */
 //Test github syncing
 public final class ImageProcessing {
-    //Objek Gambar yang akan diolah
-    private static BufferedImage leftImage = null;
-    private static BufferedImage rightImage = null;
-    private static BufferedImage temp = null;
     
-    private static int[] getSourceMatrix(int pixelWidth, int pixelHeight, char color){
-        //[TIDAK UNTUK DIPANGGIL LANGSUNG, DIPANGGIL OLEH FUNGSI processFiltering().
-        //Mengambil sebuah matriks pixel berukuran 3x3 dengan pixel di parameter 
-        //pixelWidth dan pixelHeight sebagai elemen tengah.
-        //Pixel diambil dari sebuah objek BufferedImage. Khusus implementasi ini
-        //objek sumber adalah tempImage, yaitu sebuah kopi dari objek rightImage
-        //tepat sebelum operasi yang sedang dijalankan.
-        int[] source = new int[9];
-        int sourceArrIndex=0;
-       
-        
-        for (int i= pixelHeight-1; i <= pixelHeight+1; i++) {
-            for (int j = pixelWidth-1; j <= pixelWidth+1; j++) {
-                Color currentPixel = new Color(temp.getRGB(j, i));
-                switch(color){
-                    case 'R':
-                        source[sourceArrIndex] = currentPixel.getRed();
-                        break;
-                    case 'G':
-                        source[sourceArrIndex] = currentPixel.getGreen();
-                        break;
-                    case 'B':
-                        source[sourceArrIndex] = currentPixel.getBlue();
-                        break;
-                }
-                sourceArrIndex++;
-            }
-        }
-         return source;
-    }
+//    private static int[] getSourceMatrix(int pixelWidth, int pixelHeight, double[] colorArray){
+//        //[TIDAK UNTUK DIPANGGIL LANGSUNG, DIPANGGIL OLEH FUNGSI processFiltering().
+//        //Mengambil sebuah matriks pixel berukuran 3x3 dengan pixel di parameter 
+//        //pixelWidth dan pixelHeight sebagai elemen tengah.
+//        //Pixel diambil dari sebuah objek BufferedImage. Khusus implementasi ini
+//        //objek sumber adalah tempImage, yaitu sebuah kopi dari objek rightImage
+//        //tepat sebelum operasi yang sedang dijalankan.
+//        int[] source = new int[9];
+//        int sourceArrIndex=0;
+//       
+//        
+//        for (int i= pixelHeight-1; i <= pixelHeight+1; i++) {
+//            for (int j = pixelWidth-1; j <= pixelWidth+1; j++) {
+//                source[sourceArrIndex] = colorArray[(i*imageWidth)+j];
+//                sourceArrIndex++;
+//            }
+//        }
+//         return source;
+//    }
     private static int normalizeColor(int colorValue){
-        //Normalisasi nilai sebuah integer, disini berupa sebuah nilai warna
-        //dalam spektrum RGB dengan range 0-255.
+        //Ensures colorValue value to always stay at the range (0-255)
         if(colorValue > 255){
             return 255;
         }
@@ -71,8 +49,22 @@ public final class ImageProcessing {
         }
         return colorValue;
     }
-    private static int processFiltering(int pixelWidth, int pixelHeight, char color, double[] filter){
-        int[] sourceMatrix = getSourceMatrix(pixelWidth, pixelHeight, color);
+    
+    private static int processFiltering(int pixelWidth, int pixelHeight, 
+                                        int imageWidth, int imageHeight, 
+                                        double[] colorArray, double[] filter){
+        
+        int[] sourceMatrix = new int[filter.length];
+        int matrixRange = (int) sqrt(filter.length)/2;
+        int sourceArrIndex=0;
+        
+        for (int i= pixelHeight - matrixRange; i <= pixelHeight + matrixRange; i++) {
+            for (int j = pixelWidth - matrixRange; j <= pixelWidth + matrixRange; j++) {
+                sourceMatrix[sourceArrIndex] = (int) colorArray[(i*imageWidth)+j];
+                sourceArrIndex++;
+            }
+        }
+        
         double sum = 0;
         int result;
         
@@ -113,8 +105,26 @@ public final class ImageProcessing {
         return chart;
     }
     
+    public static double[] extractAlphaValue(BufferedImage source){
+        //Extracts the Alpha value from the RGB value of the source pixels.
+        int imageWidth = source.getWidth();
+        int imageHeight = source.getHeight();
+        double[] values = new double[imageWidth * imageHeight];
+        
+         for (int i = 0; i < imageHeight; i++) {
+            for (int j = 0; j < imageWidth; j++) {
+                int rgbValue = source.getRGB(j, i);
+                Color currentPixel = new Color(rgbValue,true);
+                int value = currentPixel.getAlpha();
+                values[(i*imageWidth)+j] = value;
+            }
+        }
+         
+        return values;
+    }
+    
     public static double[] extractBlueColor(BufferedImage source){
-        //Mengambil 
+        //Extracts the Blue value from the RGB value of the source pixels.
         int imageWidth = source.getWidth();
         int imageHeight = source.getHeight();
         double[] values = new double[imageWidth * imageHeight];
@@ -132,7 +142,8 @@ public final class ImageProcessing {
     }
     
     public static double[] extractGrayColor(BufferedImage source){
-        //Mengambil 
+        //Extracts the gray value from the pixels at the source by 
+        //calculating the average of the RGB value at the given pixel.
         int imageWidth = source.getWidth();
         int imageHeight = source.getHeight();
         double[] values = new double[imageWidth * imageHeight];
@@ -152,7 +163,7 @@ public final class ImageProcessing {
     }
     
     public static double[] extractGreenColor(BufferedImage source){
-        //Mengambil 
+        //Extracts the Green value from the RGB value of the source pixels.
         int imageWidth = source.getWidth();
         int imageHeight = source.getHeight();
         double[] values = new double[imageWidth * imageHeight];
@@ -170,7 +181,7 @@ public final class ImageProcessing {
     }
     
     public static double[] extractRedColor(BufferedImage source){
-        //Mengambil 
+        //Extracts the Red value from the RGB value of the source pixels.
         int imageWidth = source.getWidth();
         int imageHeight = source.getHeight();
         double[] values = new double[imageWidth * imageHeight];
@@ -187,134 +198,89 @@ public final class ImageProcessing {
         return values;
     }
     
-    //Getter dan Setter
-    public static BufferedImage getLeftImage() {
-        return leftImage;
-    }
-
-    public static BufferedImage getRightImage() {
-        return rightImage;
-    }
-
-    public static boolean setImage(String fileDir){
-        try {
-            leftImage = ImageIO.read(new File(fileDir));
-            temp = ImageIO.read(new File(fileDir));
-            rightImage = ImageIO.read(new File(fileDir));
-        } catch (IOException ex) {
-            Logger.getLogger(ImageProcessing_GUI.class.getName()).log(Level.SEVERE, null, ex);
-            return false;
-        }
-        return true;
-    }
-    
-    public static void processGrayscale(){
-        for (int i = 0; i < rightImage.getHeight(); i++) {
-            for (int j = 0; j < rightImage.getWidth(); j++) {
-                int rgb = rightImage.getRGB(j, i);
+    public static void processGrayscale(BufferedImage image){
+        //Converts a color image to a Grayscale image.
+        for (int i = 0; i < image.getHeight(); i++) {
+            for (int j = 0; j < image.getWidth(); j++) {
+                int rgb = image.getRGB(j, i);
                 Color currentPixel = new Color(rgb,true);
+                //Find the average from all the color components for the given pixel.
                 int grayLevel = (currentPixel.getRed() 
                                     + currentPixel.getGreen() 
                                     + currentPixel.getBlue()) / 3;
-                int gray = (grayLevel << 16) + (grayLevel << 8) + grayLevel; 
-                rightImage.setRGB(j,i, gray);
-            }
-        }
-    }
-    
-    public static void processFlipHorizontal(){
-        for (int i=0; i < rightImage.getHeight(); i++) {
-        for (int j = 0; j < rightImage.getWidth()/2; j++) {
-                int left_rgb = rightImage.getRGB(j, i);
-                int right_rgb = rightImage.getRGB(rightImage.getWidth() - (j+1),i);
                 
-                rightImage.setRGB(j,i, right_rgb);
-                rightImage.setRGB(rightImage.getWidth() - (j+1),i, left_rgb);
+                int gray = (grayLevel << 16) + (grayLevel << 8) + grayLevel; 
+                image.setRGB(j,i, gray);
             }
         }
     }
     
-    public static void processFlipVertical(){
-        for (int i=0; i < rightImage.getHeight()/2; i++) {
-        for (int j = 0; j < rightImage.getWidth(); j++) {
-                int upper_rgb = rightImage.getRGB(j, i);
-                int below_rgb = rightImage.getRGB(j,rightImage.getHeight() - (i+1));
-                rightImage.setRGB(j,i, below_rgb);
-                rightImage.setRGB(j,rightImage.getHeight() - (i+1), upper_rgb);
+    public static void processFlipHorizontal(BufferedImage image){
+        //Flips image horizontally.
+        for (int i=0; i < image.getHeight(); i++) {
+        for (int j = 0; j < image.getWidth()/2; j++) {
+                int left_rgb = image.getRGB(j, i);
+                int right_rgb = image.getRGB(image.getWidth() - (j+1),i);
+                
+                image.setRGB(j,i, right_rgb);
+                image.setRGB(image.getWidth() - (j+1),i, left_rgb);
             }
         }
     }
     
-    public static void switchImage(){
-     for (int i= 0; i < leftImage.getHeight(); i++) {
-            for (int j = 0; j < leftImage.getWidth(); j++) {
-                int right_rgb = rightImage.getRGB(j, i);
-                leftImage.setRGB(j,i, right_rgb);
+    public static void processFlipVertical(BufferedImage image){
+        //Flips image vertically.
+        for (int i=0; i < image.getHeight()/2; i++) {
+        for (int j = 0; j < image.getWidth(); j++) {
+                int upper_rgb = image.getRGB(j, i);
+                int below_rgb = image.getRGB(j,image.getHeight() - (i+1));
+                image.setRGB(j,i, below_rgb);
+                image.setRGB(j,image.getHeight() - (i+1), upper_rgb);
             }
         }
     }
     
-     
-    public static void processConvolve(double[] filter){
-        int filteredRed, filteredGreen, filteredBlue;
-        setTempImage();
-//        for(int i=0;i<filter.length;i++){
-//            System.out.println(filter[i]);
-//        }
+    public static void processConvolve(BufferedImage image, double[] filter){
+        //Applies convolution operation using passed filter to the image.
+        
+        //Initialize values
+        int alphaValue, filteredRed, filteredGreen, filteredBlue;
+        int imageWidth  = image.getWidth();
+        int imageHeight = image.getHeight();
+        double[] temp_alpha = extractAlphaValue(image);
+        double[] temp_red   = extractRedColor(image);
+        double[] temp_green = extractGreenColor(image);
+        double[] temp_blue  = extractBlueColor(image);
   
-       for (int i = 1; i < rightImage.getHeight()-1; i++) {
-            for (int j = 1; j < rightImage.getWidth()-1; j++) {
-                int rgb = rightImage.getRGB(j, i);
-                Color currentPixel = new Color(rgb,true);
-                filteredRed = processFiltering(j, i,'R', filter);
-                filteredGreen = processFiltering(j, i, 'G', filter);
-                filteredBlue = processFiltering(j, i, 'B', filter);
-                int filteredRGB = (currentPixel.getAlpha() << 24) + (filteredRed << 16) 
+       //For every pixels (except top/bottom row & borderline left/right row,
+       //Apply filter.
+       for (int i = 1; i < imageHeight-1; i++) {
+            for (int j = 1; j < imageWidth-1; j++) {
+                alphaValue = (int) temp_alpha[(i*imageWidth)+j];
+                //Apply filter to every color component (RGB)
+                filteredRed = processFiltering(j, i, imageWidth, imageHeight, temp_red, filter);
+                filteredGreen = processFiltering(j, i, imageWidth, imageHeight, temp_green, filter);
+                filteredBlue = processFiltering(j, i, imageWidth, imageHeight, temp_blue, filter);
+                //Copy the processed color values to a RGB integer using bitwise operator.
+                int filteredRGB = (alphaValue << 24) + (filteredRed << 16) 
                         + (filteredGreen << 8) + filteredBlue;
-                rightImage.setRGB(j,i, filteredRGB);
+                //Set the RGB back to the exact same pixel position. 
+                image.setRGB(j,i, filteredRGB);
             }
         }  
     }
     
-    
-    
-    public static void resetImage(){
-     for (int i= 0; i < rightImage.getHeight(); i++) {
-            for (int j = 0; j < rightImage.getWidth(); j++) {
-                int right_rgb = leftImage.getRGB(j, i);
-                rightImage.setRGB(j,i, right_rgb);
+    public static void copyImage(BufferedImage source_image, BufferedImage target_image){
+        //Copies pixel data from source image to target image.
+        //The size will not be copied/adjusted, so keep in mind the size of both images.
+     for (int i= 0; i < target_image.getHeight(); i++) {
+            for (int j = 0; j < target_image.getWidth(); j++) {
+                int rgb = source_image.getRGB(j, i);
+                target_image.setRGB(j,i, rgb);
             }
         }
     }
     
-    public static void setTempImage(){
-     for (int i= 0; i < rightImage.getHeight(); i++) {
-            for (int j = 0; j < rightImage.getWidth(); j++) {
-                int right_rgb = rightImage.getRGB(j, i);
-                temp.setRGB(j,i, right_rgb);
-            }
-        }
-    }
-    
-    public static void saveSourceImage(String fileLocation, String imageType){
-        
-        File temp = new File(fileLocation);
-        
-        try {
-            ImageIO.write(leftImage, imageType, temp);
-        } catch (IOException ex) {
-            Logger.getLogger(ImageProcessing_GUI.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-    
-     public static void saveProcessedImage(String fileLocation, String imageType){
-        
-        File temp = new File(fileLocation);
-        
-        try {
-            ImageIO.write(rightImage, imageType, temp);
-        } catch (IOException ex) {
-            Logger.getLogger(ImageProcessing_GUI.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
 }
+    
+   
