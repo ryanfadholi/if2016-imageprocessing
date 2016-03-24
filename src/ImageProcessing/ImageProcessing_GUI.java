@@ -64,14 +64,15 @@ public class ImageProcessing_GUI extends javax.swing.JFrame {
         mGrayHistogram = new javax.swing.JMenuItem();
         mRGBHistogram = new javax.swing.JMenuItem();
         mPreprocessing = new javax.swing.JMenu();
-        mHorizontalFlip = new javax.swing.JMenuItem();
-        mVerticalFlip = new javax.swing.JMenuItem();
-        mGrayscale = new javax.swing.JMenuItem();
-        mReset = new javax.swing.JMenuItem();
         mConvolve = new javax.swing.JMenu();
         mBlur = new javax.swing.JMenuItem();
         mSharpen = new javax.swing.JMenuItem();
         mEmboss = new javax.swing.JMenuItem();
+        mCustom = new javax.swing.JMenuItem();
+        mHorizontalFlip = new javax.swing.JMenuItem();
+        mVerticalFlip = new javax.swing.JMenuItem();
+        mGrayscale = new javax.swing.JMenuItem();
+        mReset = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Pengolahan Citra");
@@ -203,6 +204,37 @@ public class ImageProcessing_GUI extends javax.swing.JFrame {
 
         mPreprocessing.setText("Pre-Processing");
 
+        mConvolve.setText("Convolve");
+
+        mBlur.setText("Blur");
+        mBlur.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mBlurActionPerformed(evt);
+            }
+        });
+        mConvolve.add(mBlur);
+
+        mSharpen.setText("Sharpen");
+        mSharpen.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mSharpenActionPerformed(evt);
+            }
+        });
+        mConvolve.add(mSharpen);
+
+        mEmboss.setText("Emboss");
+        mEmboss.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mEmbossActionPerformed(evt);
+            }
+        });
+        mConvolve.add(mEmboss);
+
+        mCustom.setText("Use Custom Filter...");
+        mConvolve.add(mCustom);
+
+        mPreprocessing.add(mConvolve);
+
         mHorizontalFlip.setText("Flip Horizontally");
         mHorizontalFlip.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -238,34 +270,6 @@ public class ImageProcessing_GUI extends javax.swing.JFrame {
         mPreprocessing.add(mReset);
 
         jMenuBar1.add(mPreprocessing);
-
-        mConvolve.setText("Convolve");
-
-        mBlur.setText("Blur");
-        mBlur.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mBlurActionPerformed(evt);
-            }
-        });
-        mConvolve.add(mBlur);
-
-        mSharpen.setText("Sharpen");
-        mSharpen.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mSharpenActionPerformed(evt);
-            }
-        });
-        mConvolve.add(mSharpen);
-
-        mEmboss.setText("Emboss");
-        mEmboss.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mEmbossActionPerformed(evt);
-            }
-        });
-        mConvolve.add(mEmboss);
-
-        jMenuBar1.add(mConvolve);
 
         setJMenuBar(jMenuBar1);
 
@@ -490,6 +494,7 @@ public class ImageProcessing_GUI extends javax.swing.JFrame {
     private javax.swing.JMenuItem mBlur;
     private javax.swing.JMenuItem mClose;
     private javax.swing.JMenu mConvolve;
+    private javax.swing.JMenuItem mCustom;
     private javax.swing.JMenuItem mEmboss;
     private javax.swing.JMenu mFile;
     private javax.swing.JMenuItem mGrayHistogram;

@@ -148,6 +148,42 @@
             <Property name="text" type="java.lang.String" value="Pre-Processing"/>
           </Properties>
           <SubComponents>
+            <Menu class="javax.swing.JMenu" name="mConvolve">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Convolve"/>
+              </Properties>
+              <SubComponents>
+                <MenuItem class="javax.swing.JMenuItem" name="mBlur">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Blur"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mBlurActionPerformed"/>
+                  </Events>
+                </MenuItem>
+                <MenuItem class="javax.swing.JMenuItem" name="mSharpen">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Sharpen"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mSharpenActionPerformed"/>
+                  </Events>
+                </MenuItem>
+                <MenuItem class="javax.swing.JMenuItem" name="mEmboss">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Emboss"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mEmbossActionPerformed"/>
+                  </Events>
+                </MenuItem>
+                <MenuItem class="javax.swing.JMenuItem" name="mCustom">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Use Custom Filter..."/>
+                  </Properties>
+                </MenuItem>
+              </SubComponents>
+            </Menu>
             <MenuItem class="javax.swing.JMenuItem" name="mHorizontalFlip">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Flip Horizontally"/>
@@ -182,37 +218,6 @@
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mResetActionPerformed"/>
-              </Events>
-            </MenuItem>
-          </SubComponents>
-        </Menu>
-        <Menu class="javax.swing.JMenu" name="mConvolve">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Convolve"/>
-          </Properties>
-          <SubComponents>
-            <MenuItem class="javax.swing.JMenuItem" name="mBlur">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Blur"/>
-              </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mBlurActionPerformed"/>
-              </Events>
-            </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="mSharpen">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Sharpen"/>
-              </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mSharpenActionPerformed"/>
-              </Events>
-            </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="mEmboss">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Emboss"/>
-              </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mEmbossActionPerformed"/>
               </Events>
             </MenuItem>
           </SubComponents>
