@@ -3,12 +3,11 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Projects/NetBeans/ImageProcessing/src/ImageProcessing/Main.java</file>
-            <file>file:/C:/Projects/NetBeans/ImageProcessing/src/ImageProcessing/ImageProcessing_GUI.java</file>
-            <file>file:/C:/Projects/NetBeans/ImageProcessing/src/ImageProcessing/RGBHistogram_GUI.java</file>
-            <file>file:/C:/Projects/NetBeans/ImageProcessing/src/ImageProcessing/SaveDialog_GUI.java</file>
-            <file>file:/C:/Projects/NetBeans/ImageProcessing/src/ImageProcessing/GrayscaleHistogram_GUI.java</file>
-            <file>file:/C:/Projects/NetBeans/ImageProcessing/src/ImageProcessing/CustomConvolve_GUI.java</file>
+            <file>file:/C:/Projects/Netbeans/if2016-imageprocessing/src/ImageProcessing/SaveDialog_GUI.java</file>
+            <file>file:/C:/Projects/Netbeans/if2016-imageprocessing/src/ImageProcessing/ImageProcessing_GUI.java</file>
+            <file>file:/C:/Projects/Netbeans/if2016-imageprocessing/src/ImageProcessing/Main.java</file>
+            <file>file:/C:/Projects/Netbeans/if2016-imageprocessing/src/ImageProcessing/ImageProcessing.java</file>
+            <file>file:/C:/Projects/Netbeans/if2016-imageprocessing/src/ImageProcessing/RGBHistogram_GUI.java</file>
         </group>
     </open-files>
 </project-private>

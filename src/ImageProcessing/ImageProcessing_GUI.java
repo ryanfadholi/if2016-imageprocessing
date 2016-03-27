@@ -69,7 +69,6 @@ public class ImageProcessing_GUI extends javax.swing.JFrame {
         mHorizontalFlip = new javax.swing.JMenuItem();
         mVerticalFlip = new javax.swing.JMenuItem();
         mGrayscale = new javax.swing.JMenuItem();
-        mReset = new javax.swing.JMenuItem();
         mView = new javax.swing.JMenu();
         mGrayHistogram = new javax.swing.JMenuItem();
         mRGBHistogram = new javax.swing.JMenuItem();
@@ -241,14 +240,6 @@ public class ImageProcessing_GUI extends javax.swing.JFrame {
         });
         mPreprocessing.add(mGrayscale);
 
-        mReset.setText("Reset Processed Image");
-        mReset.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mResetActionPerformed(evt);
-            }
-        });
-        mPreprocessing.add(mReset);
-
         jMenuBar1.add(mPreprocessing);
 
         mView.setText("Histogram");
@@ -412,11 +403,6 @@ public class ImageProcessing_GUI extends javax.swing.JFrame {
         chooseSaveDir(true,"PNG");
     }//GEN-LAST:event_ProcessedPNGActionPerformed
 
-    private void mResetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mResetActionPerformed
-        ImageProcessing.copyImage(Main.getSourceImage(), Main.getProcessedImage());
-        RefreshImageCanvas(true);
-    }//GEN-LAST:event_mResetActionPerformed
-
     private void mBlurActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mBlurActionPerformed
         // TODO add your handling code here:
         double[] blurKernel = {
@@ -476,7 +462,7 @@ public class ImageProcessing_GUI extends javax.swing.JFrame {
     }//GEN-LAST:event_mRGBHistogramActionPerformed
 
     private void mCustomActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mCustomActionPerformed
-        new CustomConvolve_GUI().setVisible(true);
+ 
     }//GEN-LAST:event_mCustomActionPerformed
 
     /**
@@ -512,7 +498,6 @@ public class ImageProcessing_GUI extends javax.swing.JFrame {
     private javax.swing.JMenuItem mLoad_Image;
     private javax.swing.JMenu mPreprocessing;
     private javax.swing.JMenuItem mRGBHistogram;
-    private javax.swing.JMenuItem mReset;
     private javax.swing.JMenu mSaveProcessed;
     private javax.swing.JMenu mSaveSource;
     private javax.swing.JMenuItem mSharpen;
