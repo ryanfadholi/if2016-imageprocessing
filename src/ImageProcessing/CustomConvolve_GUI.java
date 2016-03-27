@@ -17,14 +17,44 @@ public class CustomConvolve_GUI extends javax.swing.JFrame {
     public CustomConvolve_GUI() {
         initComponents();
         
-        String[] presetFilter = {"Identity", "Blur", "Emboss", "Sharpen"};
+        String[] presetFilter = {"Identity", "Blur", "Emboss", "Sharpen", "Custom"};
         
-        for(int i=0;i<presetFilter.length;i++){
-            cBasicFilterList.addItem(presetFilter[i]);
+        
+        for(int i=0;i<presetFilter.length-1;i++){
+            cBasicKernelList.removeItemAt(0);
+            cBasicKernelList.addItem(presetFilter[i]);
         }
          
-        cBasicFilterList.setSelectedIndex(0);
+        cBasicKernelList.setSelectedIndex(0);
     }
+    
+    private void changeKernel_GUI(double[] kernel){
+        tFilter1.setText(String.valueOf(kernel[0]));
+        tFilter2.setText(String.valueOf(kernel[1]));
+        tFilter3.setText(String.valueOf(kernel[2]));
+        tFilter4.setText(String.valueOf(kernel[3]));
+        tFilter5.setText(String.valueOf(kernel[4]));
+        tFilter6.setText(String.valueOf(kernel[5]));
+        tFilter7.setText(String.valueOf(kernel[6]));
+        tFilter8.setText(String.valueOf(kernel[7]));
+        tFilter9.setText(String.valueOf(kernel[8]));
+    }
+    
+    private double[] getKernel(){
+        double[] kernel = new double[9];
+        
+        kernel[0] = Double.parseDouble(tFilter1.getText());
+        kernel[1] = Double.parseDouble(tFilter2.getText());
+        kernel[2] = Double.parseDouble(tFilter3.getText());
+        kernel[3] = Double.parseDouble(tFilter4.getText());
+        kernel[4] = Double.parseDouble(tFilter5.getText());
+        kernel[5] = Double.parseDouble(tFilter6.getText());
+        kernel[6] = Double.parseDouble(tFilter7.getText());
+        kernel[7] = Double.parseDouble(tFilter8.getText());
+        kernel[8] = Double.parseDouble(tFilter9.getText());
+        
+        return kernel;
+       }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -45,44 +75,108 @@ public class CustomConvolve_GUI extends javax.swing.JFrame {
         tFilter8 = new javax.swing.JTextField();
         tFilter9 = new javax.swing.JTextField();
         jLabel = new javax.swing.JLabel();
-        cBasicFilterList = new javax.swing.JComboBox<>();
+        cBasicKernelList = new javax.swing.JComboBox<>();
+        tPreset = new javax.swing.JLabel();
+        btnConvolve = new javax.swing.JButton();
+        btnCancel = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         tFilter1.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         tFilter1.setText("0");
+        tFilter1.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                KernelTextFocusGained(evt);
+            }
+        });
 
         tFilter4.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         tFilter4.setText("0");
+        tFilter4.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                KernelTextFocusGained(evt);
+            }
+        });
 
         tFilter2.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         tFilter2.setText("0");
+        tFilter2.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                KernelTextFocusGained(evt);
+            }
+        });
 
         tFilter7.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         tFilter7.setText("0");
+        tFilter7.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                KernelTextFocusGained(evt);
+            }
+        });
 
         tFilter3.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         tFilter3.setText("0");
+        tFilter3.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                KernelTextFocusGained(evt);
+            }
+        });
 
         tFilter5.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         tFilter5.setText("1");
+        tFilter5.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                KernelTextFocusGained(evt);
+            }
+        });
 
         tFilter6.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         tFilter6.setText("0");
+        tFilter6.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                KernelTextFocusGained(evt);
+            }
+        });
 
         tFilter8.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         tFilter8.setText("0");
+        tFilter8.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                KernelTextFocusGained(evt);
+            }
+        });
 
         tFilter9.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         tFilter9.setText("0");
+        tFilter9.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                KernelTextFocusGained(evt);
+            }
+        });
 
         jLabel.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jLabel.setText("Use Custom Filter");
+        jLabel.setText("Use Custom Kernel");
 
-        cBasicFilterList.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        cBasicFilterList.addActionListener(new java.awt.event.ActionListener() {
+        cBasicKernelList.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cBasicKernelList.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cBasicFilterListActionPerformed(evt);
+                cBasicKernelListActionPerformed(evt);
+            }
+        });
+
+        tPreset.setText("Use Preset:");
+
+        btnConvolve.setText("Convolve");
+        btnConvolve.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnConvolveActionPerformed(evt);
+            }
+        });
+
+        btnCancel.setText("Cancel");
+        btnCancel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelActionPerformed(evt);
             }
         });
 
@@ -94,27 +188,34 @@ public class CustomConvolve_GUI extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(tFilter4, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(tFilter5, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(tFilter6, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(tFilter7, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(tFilter8, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(tFilter9, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                            .addComponent(tPreset)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(cBasicKernelList, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGroup(layout.createSequentialGroup()
                             .addComponent(tFilter1, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                             .addComponent(tFilter2, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(tFilter3, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(tFilter4, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(tFilter5, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(tFilter6, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(tFilter7, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(tFilter8, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(tFilter9, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addComponent(cBasicFilterList, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(251, Short.MAX_VALUE))
+                            .addComponent(tFilter3, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(btnConvolve)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnCancel)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -122,8 +223,10 @@ public class CustomConvolve_GUI extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(cBasicFilterList, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(17, 17, 17)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(cBasicKernelList, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tPreset))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(tFilter1, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(tFilter2, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -138,57 +241,66 @@ public class CustomConvolve_GUI extends javax.swing.JFrame {
                     .addComponent(tFilter7, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(tFilter8, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(tFilter9, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(111, Short.MAX_VALUE))
+                .addGap(22, 22, 22)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnConvolve)
+                    .addComponent(btnCancel))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void cBasicFilterListActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cBasicFilterListActionPerformed
-        String selectedPreset = (String) cBasicFilterList.getSelectedItem();
+    private void cBasicKernelListActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cBasicKernelListActionPerformed
+        String selectedPreset = (String) cBasicKernelList.getSelectedItem();
+        double[] kernel = new double[9];
         
         if(selectedPreset.equals("Identity")){
-            
+            double[] identity = {0, 0, 0,
+                               0, 1, 0,
+                               0, 0, 0};
+            kernel = identity;
         }
-    }//GEN-LAST:event_cBasicFilterListActionPerformed
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(CustomConvolve_GUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(CustomConvolve_GUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(CustomConvolve_GUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(CustomConvolve_GUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        else if(selectedPreset.equals("Blur")){
+            double[] blur = {0.0625, 0.125, 0.0625,
+                               0.125 , 0.25 , 0.125 ,
+                               0.0625, 0.125, 0.0625};
+            kernel = blur;
         }
-        //</editor-fold>
+        else if(selectedPreset.equals("Emboss")){
+            double[] emboss = {-2,-1, 0,
+                               -1, 1, 1,
+                                0, 1, 2};
+            kernel = emboss;
+        }
+        else if(selectedPreset.equals("Sharpen")){
+            double[] sharpen = { 0,-1, 0,
+                               -1, 5,-1,
+                                0,-1, 0};
+            kernel = sharpen;
+        }
+        
+        changeKernel_GUI(kernel);
+    }//GEN-LAST:event_cBasicKernelListActionPerformed
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new CustomConvolve_GUI().setVisible(true);
-            }
-        });
-    }
+    private void KernelTextFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_KernelTextFocusGained
+        cBasicKernelList.setSelectedIndex(4);
+    }//GEN-LAST:event_KernelTextFocusGained
+
+    private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_btnCancelActionPerformed
+
+    private void btnConvolveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConvolveActionPerformed
+       double[] kernel = getKernel();
+       ImageProcessing.processConvolve(Main.getProcessedImage(), kernel);
+       ImageProcessing_GUI.
+    }//GEN-LAST:event_btnConvolveActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JComboBox<String> cBasicFilterList;
+    private javax.swing.JButton btnCancel;
+    private javax.swing.JButton btnConvolve;
+    private javax.swing.JComboBox<String> cBasicKernelList;
     private javax.swing.JLabel jLabel;
     private javax.swing.JTextField tFilter1;
     private javax.swing.JTextField tFilter2;
@@ -199,5 +311,6 @@ public class CustomConvolve_GUI extends javax.swing.JFrame {
     private javax.swing.JTextField tFilter7;
     private javax.swing.JTextField tFilter8;
     private javax.swing.JTextField tFilter9;
+    private javax.swing.JLabel tPreset;
     // End of variables declaration//GEN-END:variables
 }

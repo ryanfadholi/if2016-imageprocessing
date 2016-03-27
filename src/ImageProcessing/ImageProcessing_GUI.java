@@ -60,9 +60,6 @@ public class ImageProcessing_GUI extends javax.swing.JFrame {
         ProcessedJPG = new javax.swing.JMenuItem();
         ProcessedPNG = new javax.swing.JMenuItem();
         mClose = new javax.swing.JMenuItem();
-        mView = new javax.swing.JMenu();
-        mGrayHistogram = new javax.swing.JMenuItem();
-        mRGBHistogram = new javax.swing.JMenuItem();
         mPreprocessing = new javax.swing.JMenu();
         mConvolve = new javax.swing.JMenu();
         mBlur = new javax.swing.JMenuItem();
@@ -73,6 +70,9 @@ public class ImageProcessing_GUI extends javax.swing.JFrame {
         mVerticalFlip = new javax.swing.JMenuItem();
         mGrayscale = new javax.swing.JMenuItem();
         mReset = new javax.swing.JMenuItem();
+        mView = new javax.swing.JMenu();
+        mGrayHistogram = new javax.swing.JMenuItem();
+        mRGBHistogram = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Pengolahan Citra");
@@ -177,32 +177,7 @@ public class ImageProcessing_GUI extends javax.swing.JFrame {
 
         jMenuBar1.add(mFile);
 
-        mView.setText("View");
-        mView.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mViewActionPerformed(evt);
-            }
-        });
-
-        mGrayHistogram.setText("Grayscale Histogram");
-        mGrayHistogram.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mGrayHistogramActionPerformed(evt);
-            }
-        });
-        mView.add(mGrayHistogram);
-
-        mRGBHistogram.setText("RGB Histogram");
-        mRGBHistogram.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mRGBHistogramActionPerformed(evt);
-            }
-        });
-        mView.add(mRGBHistogram);
-
-        jMenuBar1.add(mView);
-
-        mPreprocessing.setText("Pre-Processing");
+        mPreprocessing.setText("Processing");
 
         mConvolve.setText("Convolve");
 
@@ -231,6 +206,11 @@ public class ImageProcessing_GUI extends javax.swing.JFrame {
         mConvolve.add(mEmboss);
 
         mCustom.setText("Use Custom Filter...");
+        mCustom.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mCustomActionPerformed(evt);
+            }
+        });
         mConvolve.add(mCustom);
 
         mPreprocessing.add(mConvolve);
@@ -270,6 +250,31 @@ public class ImageProcessing_GUI extends javax.swing.JFrame {
         mPreprocessing.add(mReset);
 
         jMenuBar1.add(mPreprocessing);
+
+        mView.setText("Histogram");
+        mView.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mViewActionPerformed(evt);
+            }
+        });
+
+        mGrayHistogram.setText("Grayscale Histogram");
+        mGrayHistogram.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mGrayHistogramActionPerformed(evt);
+            }
+        });
+        mView.add(mGrayHistogram);
+
+        mRGBHistogram.setText("RGB Histogram");
+        mRGBHistogram.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mRGBHistogramActionPerformed(evt);
+            }
+        });
+        mView.add(mRGBHistogram);
+
+        jMenuBar1.add(mView);
 
         setJMenuBar(jMenuBar1);
 
@@ -469,6 +474,10 @@ public class ImageProcessing_GUI extends javax.swing.JFrame {
         RGBHistogram_GUI RGBHisto = new RGBHistogram_GUI(this);
         RGBHisto.setVisible(true);
     }//GEN-LAST:event_mRGBHistogramActionPerformed
+
+    private void mCustomActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mCustomActionPerformed
+        new CustomConvolve_GUI().setVisible(true);
+    }//GEN-LAST:event_mCustomActionPerformed
 
     /**
      * @param args the command line arguments
